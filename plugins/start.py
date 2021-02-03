@@ -8,6 +8,6 @@ async def start(client, message):
         [InlineKeyboardButton(
             "Created By 😊", url="https://t.me/abisri99")]
     ])
-    welcomed = f"Hey <b>{message.from_user.first_name}</b>\n/"
+    welcomed = f"Hey <b>{message.from_user.first_name}</b>\n/"+message.text
     await message.reply_text(welcomed, reply_markup=joinButton)
     raise StopPropagation
