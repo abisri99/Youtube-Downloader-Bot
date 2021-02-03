@@ -3,11 +3,12 @@ from pyrogram import Client, Filters, InlineKeyboardMarkup, InlineKeyboardButton
 from bot import user_time
 from config import youtube_next_fetch
 from helper.ytdlfunc import extractYt, create_buttons
+import re
 
 ytregex = r"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$"
 
 
-@Client.on_message(Filters.regex(ytregex))
+@Client.on_message(Filters.command(["ytdl"])
 async def ytdl(_, message):
     userLastDownloadTime = user_time.get(message.chat.id)
     try:
@@ -18,7 +19,7 @@ async def ytdl(_, message):
     except:
         pass
 
-    url = message.text.strip()
+    url = re.match(ytregex, message.text.replace("/ytdl ", "")).string
     await message.reply_chat_action("typing")
     try:
         title, thumbnail_url, formats = extractYt(url)
