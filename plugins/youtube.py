@@ -8,7 +8,7 @@ import re
 ytregex = r"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$"
 
 
-@Client.on_message(Filters.command(["ytdl"])
+@Client.on_message(Filters.command(["ytdl"]))
 async def ytdl(_, message):
     userLastDownloadTime = user_time.get(message.chat.id)
     try:
